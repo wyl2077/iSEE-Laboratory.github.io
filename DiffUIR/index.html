@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DiffUIR</title>
+    <!-- Bootstrap -->
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css"> -->
+    <style>
+      body {
+        background: rgb(255, 255, 255) no-repeat fixed top left; 
+        font-family: "Inter", 'Open Sans', sans-serif;
+      }
+    </style>
+
+  </head>
+
+  <!-- cover -->
+  <section>
+    <div class="jumbotron text-center mt-0">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col">
+            <h2 style="font-size:30px;">Selective Hourglass Mapping for Universal Image Restoration Based on
+              Diffusion Model</h2>
+            <h4 style="color:#6e6e6e;"> CVPR 2024 </h4>
+            <hr>
+            <h6> 
+              <a href="https://zhengdian1.github.io/">Dian Zheng</a><sup>1</sup>&nbsp; &nbsp;
+              <a href="https://dravenalg.github.io/">Xiao-Ming Wu</a><sup>1</sup> &nbsp; &nbsp;
+              <a href="https://ysz2022.github.io/">Shuzhou Yang</a><sup>2</sup> &nbsp; &nbsp;
+              <a href="https://www.jianzhang.tech/">Jian Zhang</a><sup>2</sup>&nbsp; &nbsp;
+              <a href="https://isee-ai.cn/~hujianfang/">Jian-Fang Hu</a><sup>1</sup>&nbsp; &nbsp; 
+              <a href="https://www.isee-ai.cn/~zhwshi/">Wei-Shi Zheng</a><sup>†1, 3</sup>
+              <br>
+              <br>
+            <p> 
+              <sup>1</sup> School of Computer Science and Engineering, Sun Yat-sen University, China &nbsp; &nbsp; <br>
+              <sup>2</sup> School of Electronic and Computer Engineering , Peking University, China&nbsp; &nbsp;  <br>
+              <sup>3</sup> Key Laboratory of Machine Intelligence and Advanced Computing, Ministry of Education, China&nbsp; &nbsp; 
+              <br>
+            </p>
+            <p> <sup>†</sup> corresponding author &nbsp;
+              <br>
+          </p>
+            <!-- <p> <a class="btn btn-secondary btn-lg" href="" role="button">Paper</a> 
+                <a class="btn btn-secondary btn-lg" href="" role="button">Code</a> 
+                <a class="btn btn-secondary btn-lg" href="" role="button">Data</a> </p> -->
+
+            <div class="row justify-content-center">
+              <!-- <div class="column">
+                  <p class="mb-5">
+                    <a class="btn btn-large btn-light" href="https://arxiv.org/abs/2303.00938" role="button" target="_blank">
+                    <i class="fa fa-file"></i> Paper </a> </p>
+              </div> -->
+              <div class="column">
+                  <p class="mb-5"><a class="btn btn-large btn-light" href="https://github.com/iSEE-Laboratory/DiffUIR" role="button" target="_blank">
+                <i class="fa fa-github-alt"></i> Code </a> </p>
+              </div>
+              <!-- <div class="column">
+                  <p class="mb-5"><a class="btn btn-large btn-light" href="./index.html" role="button" target="_blank" style="pointer-events: none">
+                <i class="fa fa-github-alt"></i> Dataset (Coming soon) </a> </p>
+              </div> -->
+              <!-- <div class="column">
+                <p class="mb-5"><a class="btn btn-large btn-light" href="https://mirrors.pku.edu.cn/dl-release/UniDexGrasp_CVPR2023" role="button" target="_blank">
+              <i class="fa fa-github-alt"></i> Dataset </a> </p>
+            </div> -->
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+            <hr style="margin-top:0px">
+              <div class="row justify-content-center" style="align-items:center; display:flex;">
+               <img src="images/diffuir.png" alt="input" class="img-responsive graph" width="95%"/>
+              <br>
+            </div>
+            <p class="text-justify">
+              <b> An illustration of existing universal image restoration methods compared with our DiffUIR, existing methods mainly design 
+                task-specific modules to handle different distributions, which force the generic model (tangerine module) to learn different 
+                distributions at once, termed multi-partite mapping. In contrast, the proposed DiffUIR maps the different distributions to 
+                one shared distribution (i.e., note that it is not the pure Gaussian distribution) while maintaining strong condition guidance. 
+                In this way, DiffUIR enables the generic model to only learn one shared distribution and guides the shared distribution to a 
+                task-specific distribution, termed selective hourglass mapping.
+            </p>
+              <!-- </div> -->
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  <!-- <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h2><strong>Video</strong></h2>
+            <hr style="margin-top:0px">
+            <div class="row justify-content-center" style="align-items:center; display:flex;">
+              <iframe width="95%" style="aspect-ratio: 16/9;" src="https://www.youtube.com/embed/HR2JqApZKBs" title="UniDexGrasp Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>  
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+  <br> -->
+
+  <!-- abstract -->
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h2><strong>Abstract</strong></h2>
+            <hr style="margin-top:0px">
+              <!-- <div class="row justify-content-center" style="align-items:center; display:flex;">
+               <img src="images/teaser.png" alt="input" class="img-responsive" width="95%"/>
+              <br>
+            </div> -->
+          <!-- <p class="text-justify">
+              <h6 style="color:#8899a5;text-align:left"> Figure 1. Framework overview (From the left to right): we leverage domain randomization-enhanced depth simulation to generate paired data, on which we can train our depth restoration network SwinDRNet, and the restored depths will be fed to downstream tasks and improves estimating category-level pose and grasping for specular and transparent objects.</h6>
+          </p> -->
+            <p class="text-justify">
+              In this work, we tackle the main challenge of universal image restoration, learning different degradation tasks in a single model simultaneously.
+              The goal is to learn the shared information between different tasks while maintaing high generation image quality.
+              More importantly, toward learning shared information, we want to enhance the generalization ability in real world which has more complicated scenes with multi-degradation types.
+              <br><br>
+              Two novel considerations make our DiffUIR non-trival: <br>
+              <ol>
+              <li> strong condition guidance;</li>
+              <li> shared distribution mapping.</li>
+              </ol>
+              <span style="font-weight: 600;"><em>Firstly,</em></span> inspired by the RDDM, we explicitly fuse the condition (i.e., degraded images) into the diffusing algorithm of the diffusion
+                model and extensively concatenate the condition with the diffusing target. In this way, DiffUIR is equipped with the ability of strong condition guidance which is similar 
+                to multi-partite mapping methods. <em>More importantly,</em></span> to achieve shared distribution mapping, we integrate a shared distribution term, named SDT into the diffusion algorithm elegantly 
+                and naturally, which gradually adjusts the weight of the condition in the algorithm. By modeling the two problems, in the forward diffusing process, DiffUIR gradually
+                map various distributions to one shared distribution, enabling the model to capture the shared information between tasks. 
+                Notably, we map the different distributions to an impure Gaussian distribution with slight condition left, as mentioned in previous works, the pure Gaussian noise contains 
+                no task information, which is not conducive to good generation quality. In the reverse process, by the guidance of the strong condition and SDT, DiffUIR will gradually recover 
+                from the shared distribution into the task-specific distribution.
+                
+              <br><br>
+              By only modifying the mapping strategies, without bells and whistles we achieve SOTA performance with 5 times less computational cost. 
+              Additionally, we propose several light versions of our DiffUIR, the tiny version DiffUIR-T comprises only 0.89M parameters but showing outstanding performance success. 
+              We further do zero-shot generalization experiments, which also achieve SOTA and presenting ability of handling multi-degradation at once.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h2><strong>Selective Hourglass Mapping</strong></h2>
+            <hr style="margin-top:0px">
+            <h3 style="margin-top:20px; margin-bottom:20px; color:#717980"><b>Full algorithm</b></h3>
+              <div class="row justify-content-center" style="align-items:center; display:flex;">
+                <img src="images/algorithm.png" alt="input" class="img-responsive graph" width="95%"/>
+              </div>
+              <p class="text-justify">
+                The goal of our method is to achieve strong condition guidance and shared distribution mapping at the same time. 
+                We adopt the condition mechanism of RDDM and integrate a shared distribution term (SDT) into the diffusion algorithm that 
+                achieves the synergistic effect between two components. The whole algorithm contains Distribution Approaching Forward Process, Distribution Diffusing Reverse Process and Universal Training Objective.
+
+              </p>
+            <br>
+
+            <h3 style="margin-top:20px; margin-bottom:20px; color:#717980"><b>Distribution Approaching Forward Process</b></h3>
+            <p class="equation">
+              $\begin{equation}
+              \begin{aligned}
+                  I_t &= I_{t-1}+\alpha_tI_{res}+ \beta_t\epsilon_{t-1}-\delta_tI_{in} \\
+                      &= I_{t-2}+(\alpha_t+\alpha_{t-1})I_{res}+ \sqrt{\beta^2_t+\beta^2_{t-1}}\epsilon_{t-2} -(\delta_t+\delta_{t-1})I_{in} \\
+                      &= I_{t-3} \dots \\
+                      &= I_0+\overline{\alpha}_tI_{res}+\overline{\beta}_t\epsilon-\overline{\delta}_tI_{in},
+              \end{aligned}
+              \end{equation}$
+            </p>
+            <p class="text-justify">
+              Our forward process is shown above, where $\delta_tI_{in}$ is the SDT, $\delta$ is the shared distribution coefficient.
+              We set the value of $\overline{\delta}_t$ from 0 to 0.9, which will gradually reduce the influence of the condition. When
+              $t \rightarrow T$, $\overline{\alpha}_T=1$, and the formula could be rewritten as: $I_T=0.1I_{in}+\overline{\beta}_T\epsilon$,
+              which approaches an impure Gaussian distribution.
+            </p>
+            <br>
+
+            <h3 style="margin-top:20px; margin-bottom:20px; color:#717980"><b>Distribution Diffusing Reverse Process</b></h3>
+            <p class="text-justify">
+              Following the DDPM, we use $q(I_{t-1}|I_t,I_{in},I_0^{\theta},I_{res}^{\theta})$ to simulate the distribution 
+              of $p_{\theta}(I_{t-1}|I_t)$ and based on the Bayes theorem, we could calculate it as follows.
+            </p>
+            <p class="equation" id="eq1">
+              $\begin{equation}
+              \begin{aligned}
+              \label{eqn:bayes}
+                  &\ p_{\theta}(I_{t-1}|I_t) \rightarrow q(I_{t-1}|I_t,I_{in},I_0^{\theta},I_{res}^{\theta}) & \\
+                  &= q(I_t|I_{t-1},I_{in},I_{res}^{\theta})\frac{q(I_{t-1}|I_0^{\theta},I_{res}^{\theta},I_{in})}{q(I_t|I_0^{\theta},I_{res}^{\theta},I_{in})}  \\
+                  &\propto exp\left[-\frac{1}{2}((\frac{\overline{\beta}_t^2}{\beta_t^2\overline{\beta}_{t-1}^2})I_{t-1}^2-2(\frac{I_t+\delta_t I_{in}-\alpha_tI_{res}^{\theta}}{\beta_t^2} \right.\\
+                  &\left.+\frac{I_0^{\theta}+\overline{\alpha}_{t-1}I_{res}^{\theta}-\overline{\delta}_{t-1}I_{in}}{\overline{\beta}_{t-1}^2})I_{t-1}+C(I_t,I_0^{\theta},I_{res}^{\theta},I_{in}))\right].
+              \end{aligned}
+              \end{equation}$
+            </p>
+            <p class="text-justify">
+              As the goal of the formulation is to obtain the distribution of the $I_{t-1}$, we simplify and rearrange it 
+              into the form about the $I_{t-1}$ and $C(I_t,I_0^{\theta},I_{res}^{\theta},I_{in})$ is the term unrelated with it. 
+              Then we calculate the mean $\mu_{\theta}(I_t, t)$ and variance $\sigma_{\theta}(I_t, t)$ of the 
+              distribution $p_{\theta}(I_{t-1}|I_t)$ based on equation 
+              <a href="#eq1">above</a>:
+            </p>
+            <p class="equation">
+              $\begin{equation}
+              \begin{aligned}
+                  &\mu_{\theta}(I_t, t) = I_t - \alpha_t I_{res}^{\theta} + \delta_t I_{in} - \frac{\beta^2_t}{\overline{\beta}_t}\epsilon^{\theta} \\
+                  &\sigma_{\theta}(I_t, t) = \frac{\beta^2_t \overline{\beta}^2_{t-1}}{\overline{\beta}^2_t},
+              \end{aligned}
+              \end{equation}$
+            </p>
+            <p class="text-justify">
+              where $I_{res}^{\theta}$ is predicted by the model and $\epsilon^{\theta}$ is obtained by the $I_{res}^{\theta}$. 
+              Based on the reparameterization technology, if we use the sampling strategy from the DDPM,  $I_{t-1}$ could be calculated as follows:
+            </p>
+            <p class="equation">
+              $\begin{equation}
+                  I_{t-1} = I_t - \alpha_t I_{res}^{\theta} + \delta_t I_{in} - \frac{\beta^2_t}{\overline{\beta}_t}\epsilon^{\theta} + \frac{\beta_t \overline{\beta}_{t-1}}{\overline{\beta}_t}\epsilon_*,
+              \end{equation}$
+            </p>
+            <p class="text-justify">
+              where $\epsilon_*$ is the random Gaussian noise. In this paper, to accelerate the sampling speed, 
+              we use the sampling strategy of DDIM and $I_{t-1}$ is calculated by:
+            </p>
+            <p class="equation" id="ddim">
+              $\begin{equation}
+                  I_{t-1} = I_t - \alpha_t I_{res}^{\theta} + \delta_t I_{in}.
+              \end{equation}$
+            </p>
+            <p class="text-justify">
+              Based on the <a href="#ddim">ddim equation</a>, we could iteratively recover the sample from the $I_T$ to $I_{T-k}, I_{T-2k}, \dots, I_k, I_0$ 
+              where k means skip steps followed DDIM.
+            </p>
+            <br>
+
+            <h3 style="margin-top:20px; margin-bottom:20px; color:#717980"><b>Universal Training Objective</b></h3>
+            <p class="text-justify">
+              Although our algorithm is different from standard diffusion models, as we both approach the different degraded distributions to 
+              one shared distribution, we reference DDPM and conduct the meticulous derivation of the training objective as follows:
+            </p>
+            <p class="equation">
+              $\begin{equation}
+                  \mathcal{L}(\theta) = D_{KL}(q(I_{t-1}|I_t,I_0,I_{res},I_{in}) || p_{\theta}(I_{t-1}|I_t)).
+              \end{equation}$
+            </p>
+            <p class="text-justify">
+              As mentioned in VAE, the Kullback-Leibler divergence of two Gaussian distributions could be simplified to the difference of their mean, the function is transformed as:
+            </p>
+            <p class="equation">
+              $\begin{equation}
+              \begin{aligned}
+                  \mathcal{L}(\theta) &= \mathbb{E}_{q(I_t|I_0)}\left[\Vert \mu(I_t,I_0) - \mu_{\theta}(I_t,t) \Vert^2\right] \\
+                                      &= \mathbb{E}_{t,\epsilon,I_{res}}\left[\Vert I_t - \alpha_t I_{res} + \delta_t I_{in} - \frac{\beta^2_t}{\overline{\beta}_t}\epsilon - \right.\\
+                                      & \left.\quad (I_t - \alpha_t I_{res}^{\theta} + \delta_t I_{in} - \frac{\beta^2_t}{\overline{\beta}_t}\epsilon^{\theta}) \Vert^2\right] \\
+                                      &= \mathbb{E}_{t,\epsilon,I_{res}}\left[\Vert \alpha_t(I_{res}^{\theta} - I_{res})+\frac{\beta^2_t}{\overline{\beta}_t}(\epsilon^{\theta}-\epsilon) \Vert^2\right], \\
+              \end{aligned}
+              \end{equation}$
+            </p>
+            <p class="text-justify">
+              where $I_{res}$, $\epsilon$ mean established value in the forward process and $I_{res}^{\theta}$, $\epsilon^{\theta}$ mean predicted result in the reverse process.
+              Referring to the official code of DDPM, predicting the noise or the input is essentially equivalent, so we directly use the model to predict the 
+              residual $I_{res}^{\theta}$, the $\epsilon^{\theta}$ could be derivated by it. According to previous works, when predicting the input, 
+              $L_1$ loss performs better than $L_2$ loss. Based on the experimental and theoretical basis above, our final loss function is simplified as follows:
+            </p>
+            <p class="equation">
+              $\begin{equation}
+                  \mathcal{L}(\theta)_{simple} = \mathbb{E}_{t,I_t,I_{res}}\left[\Vert I_{res} - I^{\theta}_{res}(I_t,t) \Vert_1\right].
+              \end{equation}$
+            </p>
+            <br>
+            
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+  <br>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h2><strong>Qualitative results</strong></h2>
+          <hr style="margin-top:0px">
+          <div class="row justify-content-center" style="align-items:center; display:flex;">
+            <img src="images/rain.png" alt="input" class="img-responsive graph" width="100%"/>
+          </div>
+          <div class="row justify-content-center" style="align-items:center; display:flex;">
+            <img src="images/light.png" alt="input" class="img-responsive graph" width="100%"/>
+          </div>
+          <div class="row justify-content-center" style="align-items:center; display:flex;">
+            <img src="images/blur.png" alt="input" class="img-responsive graph" width="100%"/>
+          </div>
+          <div class="row justify-content-center" style="align-items:center; display:flex;">
+            <img src="images/snow.png" alt="input" class="img-responsive graph" width="100%"/>
+          </div>
+          <div class="row justify-content-center" style="align-items:center; display:flex;">
+            <img src="images/fog.png" alt="input" class="img-responsive graph" width="100%"/>
+          </div>
+          <div class="row justify-content-center" style="align-items:center; display:flex;">
+            <img src="images/udc.png" alt="input" class="img-responsive graph" width="100%"/>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+  <br>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h2><strong>Analysis of shared information learning</strong></h2>
+            <hr style="margin-top:0px">
+            <p class="text-justify">
+              Visualization of the feature distribution before and after our SDT term. It could
+              be seen that by formulating the SDT into the diffusion algorithm, the different degradation distributions map to a
+              shared one, enabling the model to capture the shared information between different tasks.
+            </p>
+              <div class="row justify-content-center" style="align-items:center; display:flex;">
+                <img src="images/tsne.png" alt="input" class="img-responsive graph" width="80%"/>
+              </div>
+              <p class="text-justify">
+                The attention of our feature map focuses on the region with rain and fog, validating that we share useful information.
+              </p>
+              <div class="row justify-content-center" style="align-items:center; display:flex;">
+                <img src="images/attention.png" alt="input" class="img-responsive graph" width="80%"/>
+              </div>
+            <br>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+  <br>
+
+  <!-- citing -->
+  <div class="container">
+    <div class="row ">
+      <div class="col-12">
+          <h2><strong>Citation</strong></h2>
+          <hr style="margin-top:0px">
+              <!-- <pre style="background-color: #e9eeef;padding: 1.25em 1.5em"> -->
+<pre style="background-color: #e9eeef;padding: 0 1.5em">
+<code>
+@inproceedings{zheng2024selective,
+  title={Selective Hourglass Mapping for Universal Image Restoration Based on Diffusion Model},
+  author={Zheng, Dian and Wu, Xiao-Ming and Yang, Shuzhou and Zhang, Jian and Hu, Jian-Fang and Zheng, Wei-Shi},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  year={2024}
+}
+</code>
+</pre>
+      </div>
+    </div>
+  </div>
+  <br>
+
+    <!-- Contact -->
+    <div class="container">
+      <div class="row ">
+        <div class="col-12">
+            <h2><strong>Contact</strong></h2>
+            <hr style="margin-top:0px">
+            <p>If you have any questions, please feel free to contact us:
+              <ul>
+                <li><b>Dian Zheng</b>&colon; zhengd35<span style="display:none">Prevent spamming</span>@<span style="display:none">Prevent spamming</span>mail2.sysu.edu.cn </li>
+                <li><b>Wei-Shi Zheng</b>&colon; wszheng<span style="display:none">Prevent spamming</span>@<span style="display:none">Prevent spamming</span>ieee.org </li>
+              </ul>
+            </p>
+        </pre>
+        </div>
+      </div>
+    </div>
+
+
+
+  <footer class="text-center" style="margin-bottom:10px; font-size: medium;">
+      <hr>
+      Thanks to <a href="https://lioryariv.github.io/" target="_blank">Lior Yariv</a> for the <a href="https://lioryariv.github.io/idr/" target="_blank">website template</a>.
+  </footer>
+  <script>
+    MathJax = {
+      tex: {inlineMath: [['$', '$'], ['\\(', '\\)']],
+      macros: {
+        bm: ["{\\boldsymbol #1}",1],
+      }}
+    };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</body>
+</html>
