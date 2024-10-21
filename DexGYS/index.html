@@ -92,19 +92,19 @@
           <h2><strong>Abstract</strong></h2>
             <hr style="margin-top:0px">
               <p class="text-justify" >
-                This paper explores a novel task, <strong>Language-guided Dexterous Grasp Generation</strong>, 
+                This paper explores a novel task, <strong>"Dexterous Grasp as You Say"</strong>, 
                 enabling robots to perform dexterous grasping based on human commands expressed in natural language. 
                 However, the development of this field is hindered by the lack of datasets with natural human guidance; 
-                thus, we propose a language-guided dexterous grasp dataset, named <strong>SayGraspNet</strong>, 
+                thus, we propose a language-guided dexterous grasp dataset, named <strong>DexGYSNet</strong>, 
                 offering high-quality dexterous grasp annotations along with flexible and fine-grained human language guidance. 
                 Our dataset construction is cost-efficient, with the carefully-design hand-object interaction retargeting strategy, 
                 and the LLM-assisted language guidance annotation system. Equipped with this dataset, 
-                we introduce the <strong>SayGrasp</strong>framework for generating dexterous grasps based on human language instructions, 
+                we introduce the <strong>DexGYSGrasp</strong> framework for generating dexterous grasps based on human language instructions, 
                 with the capability of producing grasps that are intent-aligned, high quality and diversity. 
                 To achieve this capability, our framework decomposes the complex learning process into two manageable progressive objectives 
                 and introduce two components to realize them. The first component learns the grasp distribution focusing on intention alignment 
                 and generation diversity. And the second component refines the grasp quality while maintaining intention consistency. 
-                Extensive experiments are conducted on SayGraspNet and real world environment for validation.
+                Extensive experiments are conducted on DexGYSNet and real world environment for validation.
               </p>
               <div class="row justify-content-center" style="align-items:center; display:flex;"></div>
                 <img src="images/task.png" alt="input" class="img-responsive graph" width="100%"/>
@@ -120,10 +120,10 @@
     <div class="container">
       <div class="row">
         <div class="col-12">
-          <h2><strong>SayGraspNet Construction</strong></h2>
+          <h2><strong>DexGYSNet Construction</strong></h2>
           <hr style="margin-top:0px">
           <p class="text-justify">
-            The SayGraspNet dataset is constructed in a cost-effective manner by exploiting human grasp behavior and the extensive capabilities of Large Language Models (LLM).  
+            The DexGYSNet dataset is constructed in a cost-effective manner by exploiting human grasp behavior and the extensive capabilities of Large Language Models (LLM).  
             We develop the Hand-Object Interaction Retargeting (HOIR) strategy to transform human grasps into dexterous grasps with high quality and hand-object interaction consistency. 
             Then, we implement an LLM-assisted Language Guidance Annotation system, which leverages the knowledge of Large Language Models (LLM) to produce flexible 
             and fine-grained annotations for language guidance.
@@ -141,7 +141,7 @@
     <div class="container">
       <div class="row">
         <div class="col-12">
-          <h2><strong>SayGrasp Framework</strong></h2>
+          <h2><strong>DexGYSGrasp Framework</strong></h2>
           <hr style="margin-top:0px">
           <p class="text-justify">
             DexGYSGrasp framework  decomposes the complex learning task into two sequential objectives managed by progressive components. 
