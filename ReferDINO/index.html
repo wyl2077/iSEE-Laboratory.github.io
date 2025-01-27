@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ReferDINO</title>
+    <!-- Bootstrap -->
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <style>
+      body {
+        background: rgb(255, 255, 255) no-repeat fixed top left;
+        font-family: "Inter", 'Open Sans', sans-serif;
+      }
+    </style>
+
+  </head>
+
+  <!-- cover -->
+  <section>
+    <div class="jumbotron text-center mt-0">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col">
+            <h2 style="font-size:30px;">ReferDINO: Referring Video Object Segmentation with Visual Grounding Foundations</h2>
+            <!-- <h4 style="color:rgb(54, 125, 189);"> CVPR 2024 </h4> -->
+            <hr>
+              <a href="https://tmliang.github.io/" target="_blank">Tianming Liang</a><sup> 1</sup> &nbsp; &nbsp;
+              <a href="https://kunyulin.github.io/" target="_blank">Kun-Yu Lin</a><sup> 2</sup> &nbsp; &nbsp;
+              <a href="https://chaoleitan.github.io/" target="_blank">Chaolei Tan</a><sup> 3</sup> &nbsp; &nbsp;
+              <a href="https://faculty.sustech.edu.cn/zhangjg/en/" target="_blank">Jianguo Zhang</a><sup> 4</sup>&nbsp; &nbsp;
+              <a href="https://www.isee-ai.cn/~zhwshi/" target="_blank">Wei-Shi Zheng</a><sup> 1</sup>&nbsp; &nbsp;
+              <a href="https://isee-ai.cn/~hujianfang/" target="_blank">Jian-Fang Hu</a><sup> * 1</sup>
+              <br>
+              <br>
+            <p>
+              <sup>1</sup> Sun Yat-sen University &nbsp; &nbsp; 
+              <sup>2</sup> The University of Hong Kong &nbsp; &nbsp; 
+              <br>
+              <sup>3</sup> The Hong Kong University of Science and Technology <br>
+              <sup>4</sup> Southern University of Science and Technology
+            </p>
+
+            <div class="row justify-content-center">
+              <div class="column">
+                  <p class="mb-5">
+                    <a class="btn btn-large btn-light" href="https://arxiv.org/abs/2501.14607" role="button" target="_blank">
+                    <i class="fa fa-file"></i> Paper </a>
+                  </p>
+              </div>
+              <div class="column">
+                <p class="mb-5"><a class="btn btn-large btn-light" href="https://github.com/iSEE-Laboratory/ReferDINO" role="button" target="_blank">
+                  <i class="fa fa-github-alt"></i> Code </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <br>
+
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h2><strong>Demo</strong></h2>
+          <hr style="margin-top:0px">
+          <div class="row justify-content-center" style="align-items:center; display:flex;">
+            <video autoplay controls muted loop playsinline width="100%">
+              <source src="images/demo.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <br>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h2><strong>Abstract</strong></h2>
+            <hr style="margin-top:0px">
+              <p class="text-justify">
+                Referring video object segmentation (RVOS) aims to segment target objects throughout a video based on a text description. Despite significant progress in recent years, current RVOS models still struggle to handle complex object descriptions, particularly those involving intricate attributes and spatial relationships, due to their limited video-language understanding. To address this limitation, we present <strong>ReferDINO</strong>, an end-to-end RVOS model that inherits strong vision-language understanding from the pretrained visual grounding foundation models, and is further endowed with effective temporal understanding and object segmentation capabilities. In ReferDINO, we contribute three technical innovations for effectively adapting the foundation models to RVOS: (1) an <em>object-consistent temporal enhancer</em> that capitalizes on the pretrained object-text representations to enhance temporal understanding and object consistency; (2) a <em>grounding-guided deformable mask decoder</em> that integrates text and grounding conditions to generate accurate object masks; (3) a <em>confidence-aware query pruning strategy</em> that significantly improves the object decoding efficiency without compromising performance. Extensive experiments on five public RVOS benchmarks demonstrate that our proposed ReferDINO outperforms state-of-the-art methods significantly.
+              </p>
+              </p>
+            <br>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h2><strong>ReferDINO</strong></h2>
+          <hr style="margin-top:0px">
+          <div class="row justify-content-center" style="align-items:center; display:flex;">
+            <img src="images/model.png" alt="input" class="img-responsive graph" width="100%"/>
+          </div>
+          <p class="text-justify">
+            Modules colored in <span style="color: #0070c0;">blue</span> are borrowed from GroundingDINO, while those in <span style="color: #c00000;">red</span> are newly introduced in this work. 
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <br>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h2><strong>Results</strong></h2>
+          <div class="row justify-content-center" style="align-items:center; display:flex;">
+            <img src="images/table1.png" alt="input" class="img-responsive graph" width="100%"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <br>
+
+  <!-- citing -->
+  <div class="container">
+    <div class="row ">
+      <div class="col-12">
+          <h2><strong>Citation</strong></h2>
+          <hr style="margin-top:0px">
+              <!-- <pre style="background-color: #e9eeef;padding: 1.25em 1.5em"> -->
+<pre style="background-color: #e9eeef;padding: 0 1.5em">
+<code>
+  @article{liang2025referdino,
+    title={ReferDINO: Referring Video Object Segmentation with Visual Grounding Foundations},
+    author={Liang, Tianming and Lin, Kun-Yu and Tan, Chaolei and Zhang, Jianguo and Zheng, Wei-Shi and Hu, Jian-Fang},
+    journal={arXiv preprint arXiv:2501.14607},
+    year={2025}
+  }
+</code>
+</pre>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <footer class="text-center" style="margin-bottom:10px; font-size: medium;">
+      <hr>
+      Thanks to <a href="https://lioryariv.github.io/" target="_blank">Lior Yariv</a> for the <a href="https://lioryariv.github.io/idr/" target="_blank">website template</a>.
+  </footer>
+  <script>
+    MathJax = {
+      tex: {inlineMath: [['$', '$'], ['\\(', '\\)']],
+      macros: {
+        bm: ["{\\boldsymbol #1}",1],
+      }}
+    };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</body>
+</html>
