@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Long-RVOS: A Comprehensive Benchmark for Long-term Referring Video Object Segmentation</title>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D65ZW4CJYF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-D65ZW4CJYF');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+  <script src="./static/js/jquery-3.6.4.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/lazy.js"></script>
+  <script src="./static/js/faster.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-2 publication-title">Long-RVOS: A Comprehensive Benchmark for Long-term Referring Video Object Segmentation</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://tmliang.github.io/">Tianming Liang</a><sup>1</sup>, </span>
+            <span class="author-block">
+              <a href="">Haichao Jiang</a><sup>1</sup>, </span>
+            <span class="author-block">
+              <a href="">Yuting Yang</a><sup>1</sup>, </span>
+            <span class="author-block">
+              <a href="https://chaoleitan.github.io/">Chaolei Tan</a><sup>1</sup>, </span> 
+            <span class="author-block">
+              <a href="https://faculty.sdu.edu.cn/shuaili">Shuai Li</a><sup>2</sup>, </span><br>
+            <span class="author-block">
+              <a href="https://www.isee-ai.cn/~zhwshi/">Wei-Shi Zheng</a><sup>1</sup>, </span>
+            <span class="author-block">
+              <a href="https://isee-ai.cn/~hujianfang/">Jian-Fang Hu</a><sup>1</sup> </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Sun Yat-sen University &nbsp; </span>
+            <span class="author-block"><sup>2</sup>Shandong University</span>
+
+          </div>
+          <!-- <h1 style="font-size:24px">ICCV 2023 (<b>Oral, Best Student Paper</b>)</h1> -->
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2505.12702"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/iSEE-Laboratory/Long_RVOS"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code & Dataset</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<br>
+
+<style>
+  .text_dynamic { color:#e74c3c; }  
+  .text_static  { color:#20a39e; }  
+  .text_hybrid  { color:#3498db; } 
+</style>
+
+<div class="columns is-centered has-text-centered">
+  <h2 class="title is-3"> Video Examples </h2>
+</div>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div class="carousel-extra-padding">
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="video-wrap">
+            <p class="carousel-caption"><span class="text_static">(Static)</span> <br>  A white dog with a woman nearby. </p>
+            <video class="carousel-video" controls muted loop playsinline
+                   data-src="./static/videos/362bd3c9a0_1.mp4" type="video/mp4"></video>
+          </div>
+
+          <div class="video-wrap">
+            <p class="carousel-caption"><span class="text_hybrid">(Hybrid)</span> A woman in a striped dress eat an ice-cream with a fork. </p>
+            <video class="carousel-video" controls muted loop playsinline
+                   data-src="./static/videos/a534a134ec_1.mp4" type="video/mp4"></video>
+          </div>
+          <div class="video-wrap">
+            <p class="carousel-caption"><span class="text_static">(Static)</span> <br> A man wearing yellow clothes.</p>
+            <video class="carousel-video" controls muted loop playsinline
+                   data-src="./static/videos/82f85dab2c_1.mp4" type="video/mp4"></video>
+          </div>
+
+          <div class="video-wrap">
+            <p class="carousel-caption"><span class="text_dynamic">(Dynamic)</span> A goldfish is being placed into a water basin by a man.</p>
+            <video class="carousel-video" controls muted loop playsinline
+                   data-src="./static/videos/4dee73ec95_1.mp4" type="video/mp4"></video>
+          </div>
+
+          <div class="video-wrap">
+            <p class="carousel-caption"><span class="text_static">(Static)</span> A man wearing sunglasses sits at the rear of the boat.</p>
+            <video class="carousel-video" controls muted loop playsinline
+                   data-src="./static/videos/6c7804f2c4_1.mp4" type="video/mp4"></video>
+          </div>
+
+          <div class="video-wrap">
+            <p class="carousel-caption"><span class="text_hybrid">(Hybrid)</span> A man in black plays with a black-and-red basketball.</p>
+            <video class="carousel-video" controls muted loop playsinline
+                   data-src="./static/videos/6da16715cd_2.mp4" type="video/mp4"></video>
+          </div>
+
+          <div class="video-wrap">
+            <p class="carousel-caption"><span class="text_dynamic">(Dynamic)</span> The boy tries to climb over the headboard.</p>
+            <video class="carousel-video" controls muted loop playsinline
+                   data-src="./static/videos/9cc6ddb584_2.mp4" type="video/mp4"></video>
+          </div>
+
+          <div class="video-wrap">
+            <p class="carousel-caption"><span class="text_dynamic">(Dynamic)</span> <br>  The cat crawls into the bag.</p>
+            <video class="carousel-video" controls muted loop playsinline
+                   data-src="./static/videos/22ee907df3_1.mp4" type="video/mp4"></video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<br>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <hr style="margin-top:0px">
+        <div class="content has-text-justified">
+          <p>
+Referring video object segmentation (RVOS) aims to identify, track and segment the objects in a video based on language descriptions. To advance the task towards more practical scenarios, we introduce <strong>Long-RVOS</strong>, a large-scale benchmark for long-term referring video object segmentation. Long-RVOS contains 2,000+ videos of an average duration exceeding 60 seconds, covering a variety of objects that undergo occlusion, disappearance-reappearance and shot changing. The objects are manually annotated with three different types of descriptions: <em>static</em>, <em>text_dynamic</em> and <em>text_hybrid</em>. Moreover, unlike previous benchmarks that rely solely on the per-frame spatial evaluation, we introduce two new metrics to assess the temporal and spatiotemporal consistency. We further propose ReferMo, a promising baseline method that integrates motion information to expand the temporal receptive field, and employs a local-to-global architecture to capture both short-term text_dynamics and long-term dependencies. We hope that Long-RVOS and our baseline can drive future RVOS research towards tackling more realistic and long-form videos.
+          </p> <br>
+          <div class="row justify-content-center" style="align-items:center; display:flex;">
+            <img src="static/images/stat.png" alt="input" class="img-responsive graph" width="100%"/>
+          </div> <br>
+            <div class="row justify-content-center" style="align-items:center; display:flex;">
+            <img src="static/images/fig_stat.png" alt="input" class="img-responsive graph" width="100%"/>
+          </div>
+        </div>
+        <ul style="text-align: left;">
+          <li>
+            <span style="font-weight: bold;">☆ Long-term videos:</span>
+              <u>60.3</u>&nbsp;seconds &amp; <u>361.7</u> frames on average.
+          </li>
+
+          <li>
+            <span style="font-weight: bold;">☆ Diverse objects:</span>
+            <u>163</u> categories.
+          </li>
+
+          <li>
+            <span style="font-weight: bold;">☆ Explicit description types:</span>
+            <u>Static</u>, <u>Dynamic</u> and <u>Hybrid</u>.
+          </li>
+
+          <li>
+            <span style="font-weight: bold;">☆ Comprehensive metrics:</span>
+            <u>J&amp;F</u> (spatial), <u>tIoU</u> (temporal), <u>vIoU</u> (spatiotemporal).
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">ReferMo: A Baseline Approach</h2>
+        <hr style="margin-top:0px">
+        <div class="content has-text-justified">
+          <img src="static/images/baseline.png" alt="input" class="img-responsive graph" width="100%"/>
+          <p>
+            A video is decomposed into clips (keyframe + motion frames). ReferMo perceives the static attributes and short-term motions within each clip, then aggregates inter-clip information capture the global target. Notably, ReferMo is supervised by only keyframe masks, and SAM2 is only used at inference for target tracking in subsequent frames.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3">BibTeX</h2>
+    <pre><code>@article{liang2025longrvos,
+      title   = {Long-RVOS: A Comprehensive Benchmark for Long-term Referring Video Object Segmentation},
+      author  = {Liang, Tianming and Jiang, Haichao and Yang, Yuting and Tan, Chaolei and Li, Shuai and Zheng, Wei-Shi and Hu, Jian-Fang},
+      journal = {arXiv preprint arXiv:2505.12702},
+      year    = {2025}
+    }
+</code></pre>
+  </div>
+</section>
+
+
+
+<footer class="footer">
+  <div align="center" class="container">
+    <div class="columns is-centered">
+        <div class="content">
+            This website is borrowed from <a href="https://github.com/nerfies/nerfies.github.io">nerfies</a>.
+        </div>
+      </div>
+    </div>
+</footer>
+
+
+</body>
+</html>
