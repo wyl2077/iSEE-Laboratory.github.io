@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TypeTele: Releasing Dexterity in Teleoperation by Dexterous Manipulation Types</title>
+
+    <!-- 添加favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/logo.png">
+    <!-- 或者使用PNG格式 -->
+    <!-- <link rel="icon" type="image/png" href="assets/favicon.png"> -->
+
+    <script>
+        var task_map = {
+            "simple-object-manipulation": "simple_object_manipulation",
+            "visual-goal-reaching": "visual_goal_reaching",
+            "novel-concept-grounding": "novel_concept_grounding",
+            "one-shot-video-imitation": "one_shot_video_imitation",
+            "visual-constraint-satisfaction": "visual_constraint_satisfaction",
+            "visual-reasoning": "visual_reasoning"
+        };
+
+        function updateDemoVideo(category) {
+            // var demo = document.getElementById("single-menu-demos").value;
+            var task = document.getElementById(category + "-menu-tasks").value;
+            var inst = document.getElementById(category + "-menu-instances").value;
+
+            console.log(task_map[category], task, inst)
+
+            var video = document.getElementById(category + "-single-task-video");
+            video.src = "assets/videos/demos/" +
+                task_map[category] +
+                "/" +
+                task +
+                "/" +
+                inst +
+                ".mp4";
+            video.playbackRate = 2.0;
+            video.play();
+        }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="./static/css/academicons.min.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+
+    <style>
+      .content.has-text-justified p,
+      .content.has-text-justified ul,
+      .content.has-text-justified ol {
+          font-size: 120%;  /* 可以调整这个百分比来改变大小 */
+      }
+
+      .content.has-text-justified li {
+        font-size: inherit;  /* 继承父元素的字体大小 */
+      }
+      
+      .hover-card p,
+      .hover-card ul,
+      .hover-card ol {
+          font-size: 120%;
+      }
+      .hover-card li {
+        font-size: inherit;
+    }
+  </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<section class="hero">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column has-text-centered">
+                    <h1 class="title is-2 publication-title"><span style="color:#6a7bff; font-weight:bold;">TypeTele</span>: Releasing Dexterity in Teleoperation by Dexterous Manipulation Types</h1>
+                    <div class="is-size-5 publication-authors">
+                        <span class="author-block">
+                          <a target="_blank" href="">Yuhao Lin</a><sup>1*</sup>,
+                        </span>
+                        <span class="author-block">
+                          <a target="_blank" href="">Yilin Wei</a><sup>1*</sup>,
+                        </span>
+                        <span class="author-block">
+                          <a target="_blank" href="">Haoran Liao</a><sup>1</sup>,
+                        </span>
+                        <span class="author-block">
+                          <a target="_blank" href="">Mu Lin</a><sup>1</sup>,
+                        </span>
+                        <span class="author-block">
+                          <a target="_blank" href="chengyi-xing.com">Chengyi Xing</a><sup>2</sup>,
+                        </span>
+                        <span class="author-block">
+                          <a target="_blank" href="https://hao-l1.github.io/">Hao Li</a><sup>2</sup>,
+                        </span><br>
+                        <span class="author-block">
+                          <a target="_blank" href="https://www.intelligentrobotics-acrossscales.com/">Dandan Zhang</a><sup>3</sup>,
+                        </span>
+                        <span class="author-block">
+                          <a target="_blank" href="https://profiles.stanford.edu/mark-cutkosky">Mark Cutkosky</a><sup>2</sup>,
+                        </span>
+                        <span class="author-block">
+                          <a target="_blank" href="https://www.isee-ai.cn/~zhwshi/">Wei-Shi Zheng</a><sup>1</sup>
+                        </span>
+
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Sun Yat-sen University, China, <sup>2</sup>Stanford University, USA, <sup>3</sup>, Imperial College London, UK</span>
+          </div>
+          <!-- <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>*</sup>Equal contribution, <sup>†</sup>Corresponding authors</span>
+          </div> -->
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a target="_blank" href="https://arxiv.org/abs/2502.20900"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code(Coming Soon)</span>
+                  </a>
+              </span>
+
+
+            <!-- Arxiv Link. -->
+            <!-- <span class="link-block">
+              <a target="_blank" href="https://arxiv.org/abs/2411.04005"
+                 class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                    <i class="fas fa-file"></i>
+                </span>
+                <span>ArXiv</span>
+              </a>
+            </span> -->
+
+            <!-- Video Link. -->
+            <!-- <span class="link-block">
+              <a target="_blank" href="https://youtu.be/2mmqQYO4KlY"
+                 class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                    <i class="fab fa-youtube"></i>
+                </span>
+                <span>Video</span>
+              </a>
+            </span> -->
+            <!-- Twitter Link. -->
+            <!-- <span class="link-block">
+              <a href="https://twitter.com/chenwang_j/status/1699453998464667814" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <i class="fab fa-twitter"></i>
+                </span>
+                <span>Twitter</span>
+              </a>
+            </span> -->
+            <!-- Code Link. -->
+            </div>
+          </div>
+        </div>
+    </div>
+</section>
+
+<section class="hero teaser">
+    <div class="container">
+      <div class="hero-body">
+        <!-- Paper video -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column">
+            <div class="publication-video" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-bottom: 20px; width: 900px; margin-left: auto; margin-right: auto;">
+              <!-- 替换为本地视频 -->
+              <video 
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                controls
+                autoplay
+                muted
+                loop
+              >
+                <source src="assets\videos\fullvideo\1.mp4" type="video/mp4">
+            </div>
+          </div>
+        </div>
+        <!-- /Paper video -->
+      </div>
+    </div>
+  </section>
+
+<!-- <section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-build_pymarid">
+          <video poster="" id="build_pymarid" autoplay controls muted loop height="100%">
+            <source src="assets/videos/grasp.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-build_a_tower">
+          <video poster="" id="build_a_tower" autoplay controls muted loop height="100%">
+            <source src="assets/videos/grasp.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-Insert_a_red">
+          <video poster="" id="Insert_a_red" autoplay controls muted loop height="100%">
+            <source src="assets/videos/grasp.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-stack_two_cube">
+          <video poster="" id="stack_two_cube" autoplay controls muted loop height="100%">
+            <source src="assets/videos/grasp.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-disturbance">
+          <video poster="" id="disturbance" autoplay controls muted loop height="100%">
+            <source src="assets/videos/grasp.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-disturbance"></div>
+          <video poster="" id="disturbance" autoplay controls muted loop height="100%">
+            <source src="assets/videos/grasp.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <h2 class="subtitle has-text-centered">
+      </br>
+      Despite being trained only in simulation, our system demonstrates <b>zero-shot transfer</b> to two real-world robots equipped with the dexterous hand.
+      </h2>
+    </div>
+  </div>
+</section> -->
+
+<section class="hero is-light">
+  <div class="hero-body">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p style="font-size: 125%">
+            Dexterous teleoperation plays a crucial role in robotic manipulation for real-world data collection and remote robot control. Previous dexterous teleoperation mostly relies on hand retargeting to closely mimic human hand postures. However, these approaches may fail to fully leverage the inherent dexterity of dexterous hands, which can execute unique actions through their structural advantages compared to human hands. To address this limitation, we propose <b>TypeTele</b>, a type-guided dexterous teleoperation system, which enables dexterous hands to perform actions that are not constrained by human motion patterns. This is achieved by introducing dexterous manipulation types into the teleoperation system, allowing operators to employ appropriate types to complete specific tasks. To support this system, we build an extensible dexterous manipulation type library to cover comprehensive dexterous postures used in manipulation tasks. During teleoperation, we employ a MLLM (Multi-modality Large Language Model)-assisted type retrieval module to identify the most suitable manipulation type based on the specific task and operator commands. Extensive experiments of real-world teleoperation and imitation learning demonstrate that the incorporation of manipulation types significantly takes full advantage of the dexterous robot's ability to perform diverse and complex tasks with higher success rates.          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <h2 class="title is-3">Method</h2>
+        <div class="content has-text-justified">
+          <img src="assets/images/method.png" class="interpolation-image"
+               alt="" style="display: block; margin-left: auto; margin-right: auto" width="900"/>
+               <div class="content has-text-justified">
+                <div class="content has-text-justified hover-card" style="padding: 1.5rem;">
+                    <p>The overview of our system is shown in the figure. First, we construct a dexterous manipulation type library, which covers the types required for various manipulation tasks. Then, we propose a MLLM-assisted type retrieval module to select the most appropriate manipulation type based on the current task. Finally, for the teleoperation process, we design an interpolation mapping strategy to control the dexterous action of specific type by human hand motion.</p>
+                </div>
+        </div>
+        <div class="content has-text-justified">
+          <img src="assets/images/typelibrary.png" class="interpolation-image"
+               alt="" style="display: block; margin-left: auto; margin-right: auto" width="900"/>
+               <div class="content has-text-justified">
+                <div class="content has-text-justified hover-card" style="padding: 1.5rem;">
+                    <p>Inspired by existing human grasp taxonomies that classify hand postures into distinct types to encompass most human manipulations, we design a <b>Dexterous Manipulation Type Library</b>, comprising diverse dexterous types to guide dexterous postures across a wide range of teleoperation tasks. The library is built upon recent taxonomies and augmented with postures specially designed for dexterous hands, which are extracted from a variety of dexterous manipulation tasks. Overall, our library is consisted with 4 sub-categories and 30 types. </p>
+                </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero is-light">
+  <div class="hero-body">
+    <div class="container is-max-widescreen">
+      <!-- Generalization Videos -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full-width">
+            <h2 class="title is-3">Experiments</h2>
+
+            <div class="content has-text-justified">
+                <img src="./assets/images/realworld_setting.png" class="interpolation-image"
+                alt="" style="display: block; margin-left: auto; margin-right: auto" width="900"/>
+                <div class="content has-text-justified">
+                    <div class="content has-text-justified hover-card" style="padding: 1.5rem;">
+                        <p>The hardware of our system involves the hand motion capture device, robot arm, dexterous hand and camera. For motion capture device in teleoperation, we employ Rokoko Gloves to capture 3 DOF position of each finger and employ the controller of Meta Quest 3 VR to capture wrist 6 DOF pose. For the robot, we employ two Kinova arms (6 DOF and 7 DOF, respectively) and two LEAP dexterous hands (16 DOF each). For vision data collection, we employ a Realsense L515 LiDAR Camera to capture a single-view RGB-D observation of the scene. </p>
+                    </div>
+                </div>
+            </div>
+            <div class="content has-text-justified">
+                <img src="./assets/images/task.png" class="interpolation-image"
+                 alt="" style="display: block; margin-left: auto; margin-right: auto" width="900"/>
+                <div class="content has-text-justified hover-card" style="padding: 1.5rem;">
+                    <p>We evaluate our teleoperation system and imitation learning policy through diverse manipulation tasks. For teleoperation, we measure success rate \(Suc\), total task completion time \(T_{all}\), and average demonstration duration \(T_{single}\). For imitation learning, we assess policy performance when trained on the collected demonstrations.</p>
+                </div>
+            </div>
+            <div class="content has-text-justified">
+                <img src="./assets/images/table.png" class="interpolation-image"
+                 alt="" style="display: block; margin-left: auto; margin-right: auto" width="900"/>
+            </div>
+      </div>
+
+
+
+    </div>
+  </div>
+</section>
+
+<section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-widescreen">
+        <!-- Performance Demonstrations -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-full-width">
+            <h2 class="title is-3">Performance Demonstrations</h2>
+            <h3 class="title is-4"><span
+              class="dvima">Intresting Tasks
+            </span></h3>
+            <div class="container is-max-desktop">
+                <div class="columns is-centered">
+                  <div class="column">
+                    <div class="columns is-centered">
+                      <div class="column">
+                        <video poster="" autoplay controls muted loop width="400">
+                          <source src="assets/videos/demo/hanoyi.mp4" type="video/mp4">
+                        </video>
+                      </div>
+                      <div class="column">
+                        <video poster="" autoplay controls muted loop width="400">
+                          <source src="assets/videos/demo/draw.mp4" type="video/mp4">
+                        </video>
+                      </div>
+                    </div>
+                    <div class="columns is-centered">
+                      <div class="column">
+                        <video poster="" autoplay controls muted loop width="400">
+                          <source src="assets/videos/demo/umi.mp4" type="video/mp4">
+                        </video>
+                      </div>
+                      <div class="column">
+                        <video poster="" autoplay controls muted loop width="400">
+                          <source src="assets/videos/demo/2obj.mp4" type="video/mp4">
+                        </video>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>           
+            <br>
+            <br>
+            <h3 class="title is-4"><span
+              class="dvima">Comparison With Baselines
+            </span></h3>
+            <div class="content has-text-justified hover-card" style="padding: 1.5rem;">
+                <p>We compared our TypeTele with retargeting-based teleoperation systems(including vision-based and glove-based ones) across multiple manipulation tasks. 
+                    Our approach achieved leading performance in both operation success rate and time consumption.</p>
+            </div>
+            <div class="container is-max-desktop">
+                <div class="columns is-centered">
+                  <div class="column">
+                    <p class="subtitle is-5"><strong>ARCap</strong></p>
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/contrast/baseline1_basketball.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column">
+                    <p class="subtitle is-5"><strong>AnyTeleop</strong></p>
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/contrast/baseline2_basketball.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column">
+                    <p class="subtitle is-5"><strong><span style="color:#6a7bff; font-weight:bold;">TypeTele</span></strong></p>
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/contrast/ours_basketball.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+                <div class="columns is-centered">
+                  <div class="column">
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/contrast/baseline1_board.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column">
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/contrast/baseline2_board.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column">
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/contrast/ours_board.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+                <div class="columns is-centered">
+                  <div class="column">
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/contrast/baseline1_box.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column">
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/contrast/baseline2_box.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column">
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/contrast/ours_box.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+                <div class="columns is-centered">
+                  <div class="column">
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/contrast/baseline1_kettle.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column">
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/contrast/baseline2_kettle.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column">
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/contrast/ours_kettle.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+                <div class="columns is-centered">
+                  <div class="column">
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/contrast/baseline1_pan.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column">
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/contrast/baseline2_pan.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column">
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/contrast/ours_pan.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+                <div class="columns is-centered">
+                  <div class="column">
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/contrast/baseline1_pump.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column">
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/contrast/baseline2_pump.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column">
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/contrast/ours_pump.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+                <div class="columns is-centered">
+                  <div class="column">
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/contrast/baseline1_spray.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column">
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/contrast/baseline2_spray.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column">
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/contrast/ours_spray.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+                <div class="columns is-centered">
+                  <div class="column">
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/contrast/baseline1_stick.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column">
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/contrast/baseline2_stick.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column">
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/contrast/ours_stick.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+                <div class="columns is-centered">
+                  <div class="column">
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/contrast/baseline1_2obj.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column">
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/contrast/baseline2_2obj.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column">
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/contrast/ours_2obj.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+              </div>
+            <br>
+            <br>
+            <h3 class="title is-4"><span
+              class="dvima">Autonomous Policy
+            </span></h3>
+            <div class="content has-text-justified hover-card" style="padding: 1.5rem;">
+                <p>To evaluate the impact of teleoperation quality,
+                    we train separate policies on datasets collected from the retargeting-based and our systems, 
+                    using the same number of demonstrations and policy hyper-parameters. The results demonstrate the higher quality of data collected by TypeTele.
+                    <strong>Below we present the performance of the policy trained with TypeTele-collected data</strong>.</p>
+            </div>
+            <div class="container is-max-desktop">
+                <div class="columns is-centered">
+                  <div class="column">
+                    <p class="subtitle is-5"><strong>Pick and Place</strong></p>
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/policy/task1.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column">
+                    <p class="subtitle is-5"><strong>Collect and Store</strong></p>
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/policy/task2.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column">
+                    <p class="subtitle is-5"><strong>Handover</strong></p>
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/policy/task3.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+                <div class="columns is-centered">
+                  <div class="column">
+                    <p class="subtitle is-5"><strong>Pouring from Pan</strong></p>
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/policy/task4.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column">
+                    <p class="subtitle is-5"><strong>Use Scissors</strong></p>
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/policy/task5.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column">
+                    <p class="subtitle is-5"><strong>Spray Water</strong></p>
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/policy/task6.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+                <div class="columns is-centered">
+                  <div class="column">
+                    <p class="subtitle is-5"><strong>Use a <span style="color:#6a7bff; font-weight:bold;">Heavy</span> Kettle</strong></p>
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/policy/task7.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column">
+                    <p class="subtitle is-5"><strong>Open a <span style="color:#6a7bff; font-weight:bold;">Large</span> Box</strong></p>
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/policy/task8.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="column">
+                    <p class="subtitle is-5"><strong>Grasp Two Objects</strong></p>
+                    <video poster="" autoplay controls muted loop width="300">
+                      <source src="assets/videos/policy/task9.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+                
+              </div>
+            <br>
+            <br>
+            <h3 class="title is-4"><span
+                class="dvima">Type Adjustment
+            </span></h3>
+            <div class="content has-text-justified hover-card" style="padding: 1.5rem;">
+                <p>Our system supports type adjustment to further enhance its versatility, while our type library can
+                    already cover most common tasks, and each type generalizes well across objects with similar geo-
+                    metric characteristics. To enable such adjustment, the system allows users to <strong>explicitly apply offsets
+                    to the position or orientation of specific fingertips</strong>.</p>
+            </div>
+            <div class="container is-max-desktop">
+                <div class="columns is-centered">
+                    <div class="column">
+                        <div class="columns is-centered">
+                            <div class="column">
+                                <video poster="" autoplay controls muted loop width="400">
+                                    <source src="assets/videos/adjustment/pump.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="column">
+                                <video poster="" autoplay controls muted loop width="400">
+                                    <source src="assets/videos/adjustment/spray.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                       
+                </div>
+            </div>
+            <br>
+            <br>
+            <h3 class="title is-4"><span
+                class="dvima">TypeTele applied on Inspire Hand
+            </span></h3>
+            <div class="content has-text-justified hover-card" style="padding: 1.5rem;">
+                  <p>TypeTele is applicable to various dexterous robotic hands. We conduct
+                    real-world manipulation experiments using the Inspire Hand.</p>  
+            </div>
+            <div class="container is-max-desktop">
+                <div class="columns is-centered">
+                    <div class="column">
+                        <div class="columns is-centered">
+                            <div class="column">
+                                <p class="subtitle is-5"><strong>Avp (Retargeting-based method)</strong></p>
+                                <video poster="" autoplay controls muted loop width="400">
+                                    <source src="assets/videos/inspire/box_baseline.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="column">
+                                <p class="subtitle is-5"><strong><span style="color:#6a7bff; font-weight:bold;">Avp (Type strategy)</span></strong></p>
+                                <video poster="" autoplay controls muted loop width="400">
+                                    <source src="assets/videos/inspire/box_ours.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                        <div class="columns is-centered">
+                            <div class="column">
+                                <video poster="" autoplay controls muted loop width="400">
+                                    <source src="assets/videos/inspire/jd_baseline.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="column">
+                                <video poster="" autoplay controls muted loop width="400">
+                                    <source src="assets/videos/inspire/jd_ours.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                        <div class="columns is-centered">
+                            <div class="column">
+                                <video poster="" autoplay controls muted loop width="400">
+                                    <source src="assets/videos/inspire/zq_baseline.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="column">
+                                <video poster="" autoplay controls muted loop width="400">
+                                    <source src="assets/videos/inspire/zq_ours.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            
+            </div>   
+          </div>
+        </div>
+    </div>
+</div>
+</section>
+
+
+
+<section class="hero is-light">
+  <div class="hero-body">
+    <div class="container is-max-widescreen">
+      <!-- Generalization Videos -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Conclusion</h2>
+      <div class="column">
+          <div class="content has-text-justified">
+          <p style="font-size: 125%">
+            We believe that achieving effective teleoperation for the data collection of delicate dexterous manipulation task is important in the robotic learning communities. In this paper, we propose Typetele, a novel dexterous teleoperation system with the insight that introducing types into teleoperation. To support this system, we build a dexterous manipulation library, comprising various types required for common dexterous tasks. During the teleoperation, a MLLM-assisted type retrieval module is proposed to select the suitable type for current task. And a interpolation mapping is used to control the dexterous hand by human hand motion. The extensive experiments show that our system not only enables tasks previously unachievable by teleoperation, but also greatly improves data collection efficiency and quality, thereby enhancing imitation learning and autonomous policy performance.        </p>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-widescreen content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+    @misc{lin2025typetelereleasingdexterityteleoperation,
+            title={TypeTele: Releasing Dexterity in Teleoperation by Dexterous Manipulation Types}, 
+            author={Yuhao Lin and Yi-Lin Wei and Haoran Liao and Mu Lin and Chengyi Xing and Hao Li and Dandan Zhang and Mark Cutkosky and Wei-Shi Zheng},
+            year={2025},
+            eprint={2507.01857},
+            archivePrefix={arXiv},
+            primaryClass={cs.RO},
+            url={https://arxiv.org/abs/2507.01857}, 
+    }
+    </code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p> Website borrowed from <a href="https://github.com/nerfies/nerfies.github.io">NeRFies</a> under a <a
+              href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+</body>
+</html>
