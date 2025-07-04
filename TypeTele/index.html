@@ -276,68 +276,6 @@
 </div>
 </section>
 
-<section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column">
-        <h2 class="title is-3">Method</h2>
-        <div class="content has-text-justified">
-          <img src="assets/images/method.png" class="interpolation-image"
-               alt="" style="display: block; margin-left: auto; margin-right: auto" width="900"/>
-               <div class="content has-text-justified">
-                <div class="content has-text-justified hover-card" style="padding: 1.5rem;">
-                    <p>The overview of our system is shown in the figure. First, we construct a dexterous manipulation type library, which covers the types required for various manipulation tasks. Then, we propose a MLLM-assisted type retrieval module to select the most appropriate manipulation type based on the current task. Finally, for the teleoperation process, we design an interpolation mapping strategy to control the dexterous action of specific type by human hand motion.</p>
-                </div>
-        </div>
-        <div class="content has-text-justified">
-          <img src="assets/images/typelibrary.png" class="interpolation-image"
-               alt="" style="display: block; margin-left: auto; margin-right: auto" width="900"/>
-               <div class="content has-text-justified">
-                <div class="content has-text-justified hover-card" style="padding: 1.5rem;">
-                    <p>Inspired by existing human grasp taxonomies that classify hand postures into distinct types to encompass most human manipulations, we design a <b>Dexterous Manipulation Type Library</b>, comprising diverse dexterous types to guide dexterous postures across a wide range of teleoperation tasks. The library is built upon recent taxonomies and augmented with postures specially designed for dexterous hands, which are extracted from a variety of dexterous manipulation tasks. Overall, our library is consisted with 4 sub-categories and 30 types. </p>
-                </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<section class="hero is-light">
-  <div class="hero-body">
-    <div class="container is-max-widescreen">
-      <!-- Generalization Videos -->
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-full-width">
-            <h2 class="title is-3">Experiments</h2>
-
-            <div class="content has-text-justified">
-                <img src="./assets/images/realworld_setting.png" class="interpolation-image"
-                alt="" style="display: block; margin-left: auto; margin-right: auto" width="900"/>
-                <div class="content has-text-justified">
-                    <div class="content has-text-justified hover-card" style="padding: 1.5rem;">
-                        <p>The hardware of our system involves the hand motion capture device, robot arm, dexterous hand and camera. For motion capture device in teleoperation, we employ Rokoko Gloves to capture 3 DOF position of each finger and employ the controller of Meta Quest 3 VR to capture wrist 6 DOF pose. For the robot, we employ two Kinova arms (6 DOF and 7 DOF, respectively) and two LEAP dexterous hands (16 DOF each). For vision data collection, we employ a Realsense L515 LiDAR Camera to capture a single-view RGB-D observation of the scene. </p>
-                    </div>
-                </div>
-            </div>
-            <div class="content has-text-justified">
-                <img src="./assets/images/task.png" class="interpolation-image"
-                 alt="" style="display: block; margin-left: auto; margin-right: auto" width="900"/>
-                <div class="content has-text-justified hover-card" style="padding: 1.5rem;">
-                    <p>We evaluate our teleoperation system and imitation learning policy through diverse manipulation tasks. For teleoperation, we measure success rate \(Suc\), total task completion time \(T_{all}\), and average demonstration duration \(T_{single}\). For imitation learning, we assess policy performance when trained on the collected demonstrations.</p>
-                </div>
-            </div>
-            <div class="content has-text-justified">
-                <img src="./assets/images/table.png" class="interpolation-image"
-                 alt="" style="display: block; margin-left: auto; margin-right: auto" width="900"/>
-            </div>
-      </div>
-
-
-
-    </div>
-  </div>
-</section>
 
 <section class="hero">
     <div class="hero-body">
@@ -712,6 +650,69 @@
 </div>
 </section>
 
+
+<section class="hero is-light">
+  <div class="hero-body">
+    <div class="container is-max-widescreen">
+      <!-- Generalization Videos -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full-width">
+            <h2 class="title is-3">Experiments</h2>
+
+            <div class="content has-text-justified">
+                <img src="./assets/images/realworld_setting.png" class="interpolation-image"
+                alt="" style="display: block; margin-left: auto; margin-right: auto" width="900"/>
+                <div class="content has-text-justified">
+                    <div class="content has-text-justified hover-card" style="padding: 1.5rem;">
+                        <p>The hardware of our system involves the hand motion capture device, robot arm, dexterous hand and camera. For motion capture device in teleoperation, we employ Rokoko Gloves to capture 3 DOF position of each finger and employ the controller of Meta Quest 3 VR to capture wrist 6 DOF pose. For the robot, we employ two Kinova arms (6 DOF and 7 DOF, respectively) and two LEAP dexterous hands (16 DOF each). For vision data collection, we employ a Realsense L515 LiDAR Camera to capture a single-view RGB-D observation of the scene. </p>
+                    </div>
+                </div>
+            </div>
+            <div class="content has-text-justified">
+                <img src="./assets/images/task.png" class="interpolation-image"
+                 alt="" style="display: block; margin-left: auto; margin-right: auto" width="900"/>
+                <div class="content has-text-justified hover-card" style="padding: 1.5rem;">
+                    <p>We evaluate our teleoperation system and imitation learning policy through diverse manipulation tasks. For teleoperation, we measure success rate \(Suc\), total task completion time \(T_{all}\), and average demonstration duration \(T_{single}\). For imitation learning, we assess policy performance when trained on the collected demonstrations.</p>
+                </div>
+            </div>
+            <div class="content has-text-justified">
+                <img src="./assets/images/table.png" class="interpolation-image"
+                 alt="" style="display: block; margin-left: auto; margin-right: auto" width="900"/>
+            </div>
+      </div>
+
+
+
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <h2 class="title is-3">Method</h2>
+        <div class="content has-text-justified">
+          <img src="assets/images/method.png" class="interpolation-image"
+               alt="" style="display: block; margin-left: auto; margin-right: auto" width="900"/>
+               <div class="content has-text-justified">
+                <div class="content has-text-justified hover-card" style="padding: 1.5rem;">
+                    <p>The overview of our system is shown in the figure. First, we construct a dexterous manipulation type library, which covers the types required for various manipulation tasks. Then, we propose a MLLM-assisted type retrieval module to select the most appropriate manipulation type based on the current task. Finally, for the teleoperation process, we design an interpolation mapping strategy to control the dexterous action of specific type by human hand motion.</p>
+                </div>
+        </div>
+        <div class="content has-text-justified">
+          <img src="assets/images/typelibrary.png" class="interpolation-image"
+               alt="" style="display: block; margin-left: auto; margin-right: auto" width="900"/>
+               <div class="content has-text-justified">
+                <div class="content has-text-justified hover-card" style="padding: 1.5rem;">
+                    <p>Inspired by existing human grasp taxonomies that classify hand postures into distinct types to encompass most human manipulations, we design a <b>Dexterous Manipulation Type Library</b>, comprising diverse dexterous types to guide dexterous postures across a wide range of teleoperation tasks. The library is built upon recent taxonomies and augmented with postures specially designed for dexterous hands, which are extracted from a variety of dexterous manipulation tasks. Overall, our library is consisted with 4 sub-categories and 30 types. </p>
+                </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 <section class="hero is-light">
