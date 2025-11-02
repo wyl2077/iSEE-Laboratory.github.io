@@ -202,3 +202,18 @@ div.publication-authors + div.publication-authors {
 .abstract-trigger.is-expanded .abstract-arrow {
   transform: rotate(180deg);
 }
+
+/* Visualization container images - ensure consistent sizing */
+#visualization-container .column img {
+  width: auto;
+  height: 400px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Make containers wider to utilize screen space */
+.container.is-max-desktop {
+  max-width: 1400px !important;
+}
+
