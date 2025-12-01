@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="CycleManip: Enabling Cyclic Task Manipulation via Effective Historical Perception and Understanding">
+  <meta name="keywords" content="Robotics, Manipulation, Cyclic Tasks, Imitation Learning">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CycleManip</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script> -->
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" defer></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js" defer></script>
+  <script src="./static/js/bulma-slider.min.js" defer></script>
+  <script src="./static/js/index.js" defer></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title"><span style="color: #4472C4;">Cycle</span><span style="color: #ED7D31;">Manip</span>: Enabling Cyclic Task Manipulation via Effective Historical Perception and Understanding</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><a href="https://wyl2077.github.io/">Yi-Lin Wei</a><sup>1,*</sup>,</span>
+            <span class="author-block">Haoran Liao<sup>1,*</sup>,</span>
+            <span class="author-block">Yuhao Lin<sup>1</sup>,</span>
+            <span class="author-block">Pengyue Wang<sup>1</sup>,</span>
+            <span class="author-block">Zhizhao Liang<sup>1</sup>,</span>
+            <span class="author-block"><a href="https://guiliang.me/">Guiliang Liu</a><sup>1</sup></span>
+            <span class="author-block"><a href="https://www.isee-ai.cn/~zhwshi/">Wei-Shi Zheng</a><sup>1†</sup></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Sun Yat-sen University,</span>
+            <span class="author-block"><sup>2</sup>The Chinese University of Hong Kong, Shenzhen</span>
+          </div>
+          <div class="is-size-6" style="margin-top: 8px;">
+            <span class="author-block"><sup>*</sup>Equal contribution,</span>
+             <span class="author-block"><sup>†</sup>Corresponding author</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video autoplay muted loop playsinline controls style="width: 100%; display: block; margin: 0 auto;">
+        <source src="./static/demo/demo.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <h2 class="subtitle has-text-centered" style="margin-top: 20px;">
+        <strong>CycleManip</strong> performs various cycle-based manipulation tasks with different robot platforms.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            In this paper, we explore an important yet underexplored task in robot manipulation: <strong>cycle-based manipulation</strong>, where robots need to perform cyclic or repetitive actions with an expected terminal time. These tasks are crucial in daily life, such as shaking a bottle or knocking a nail. However, few prior works have explored this task, leading to two main challenges: <strong>1)</strong> the imitation methods often fail to complete these tasks within the expected terminal time due to the ineffective utilization of history; <strong>2)</strong> the absence of a benchmark with sufficient data and automatic evaluation tools hinders development of effective solutions in this area. 
+          </p>
+          <p>
+            To address these challenges, we <strong>firstly</strong> propose the CycleManip framework to achieve cycle-based task manipulation in an end-to-end imitation manner without requiring any extra models, hierarchical structure or significant computational overhead. The core insight is to enhance effective history perception by a cost-aware sampling strategy and to improve historical understanding by multi-task learning. <strong>Secondly</strong>, we introduce a cycle-based task manipulation benchmark, which provides diverse cycle-based tasks, and an automatic evaluation method. 
+          </p>
+          <p>
+            Extensive experiments conducted in both simulation and real-world settings demonstrate that our method achieves high success rates in cycle-based task manipulation. The results further show strong adaptation performance in general manipulation, and the plug-and-play ability on imitation policies such as Vision-Language-Action (VLA) models. Moreover, the results show that our approach can be applied across diverse robotic platforms, including bi-arm grippers, dexterous hands, and humanoid robots.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+
+<!-- Baseline Problems Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Challenges in Cyclic Manipulation</h2>
+    <br>
+      <h2 class="subtitle has-text-centered">
+       Traditional imitation policies fails to complete the cyclic tasks as they typically rely on short observation windows, leading to no cycling or infinite looping problems. (The four visualizations below are the results generated by the 3D Diffusion Policy.)
+      </h2>
+    
+    <div class="columns is-multiline is-centered" style="align-items: flex-start;">
+      <div class="column is-one-quarter">
+        <div class="content has-text-centered">
+          <video autoplay muted loop playsinline controls style="width: 100%; height: 300px; object-fit: cover;">
+            <source src="./static/video/bsl_problem/drum-0.mp4" type="video/mp4">
+          </video>
+        <p style="font-size: 0.9em; margin-top: 8px;">
+          <span style="color: red; margin-right: 4px;">✕</span><strong>No Cycling</strong><br>&nbspDrum Hammering
+        </p>
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="content has-text-centered">
+          <video autoplay muted loop playsinline controls style="width: 100%; height: 300px; object-fit: cover;">
+            <source src="./static/video/bsl_problem/dual_knife_chopping-0.mp4" type="video/mp4">
+          </video>
+          <p style="font-size: 0.9em; margin-top: 8px;">
+            <span style="color: red; margin-right: 4px;">✕</span><strong>No Cycling</strong><br>&nbsp Dual-Knife Chopping (Sim)
+          </p>
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="content has-text-centered">
+          <video autoplay muted loop playsinline controls style="width: 100%; height: 300px; object-fit: cover;">
+            <source src="./static/video/bsl_problem/bottle_shaking_sim-无限.mp4" type="video/mp4">
+          </video>
+         <p style="font-size: 0.9em; margin-top: 8px;">
+            <span style="color: red; margin-right: 4px;">✕</span><strong>Infinite Looping</strong><br>&nbsp Bottle Shaking (Sim)
+          </p>
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="content has-text-centered">
+          <video autoplay muted loop playsinline controls style="width: 100%; height: 300px; object-fit: cover;">
+            <source src="./static/video/bsl_problem/bottle_shaking_real-无限.mp4" type="video/mp4">
+          </video>
+         <p style="font-size: 0.9em; margin-top: 8px;">
+            <span style="color: red; margin-right: 4px;">✕</span><strong>Infinite Looping</strong><br>&nbsp Bottle Shaking (Real)
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <h2 class="title is-3 has-text-centered">Method Overview</h2>
+      <br>
+      <h2 class="subtitle has-text-centered">
+        CycleManip framework enhances cyclic manipulation through <br>(1) effective historical perception (cost-aware sampling strategy) and (2)effective historical understanding (multi-task learning).
+      </h2>
+      <div style="display: flex; justify-content: center;">
+        <img src="./static/images/method_final3.png" alt="Method Overview" style="width: 80%;" loading="eager"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Benchmark Introduction Section -->
+<!-- <section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">CycleManip Benchmark</h2>
+    <div class="content" style="max-width: 900px; margin: 0 auto 30px auto;">
+      <p style="font-size: 1em; text-align: justify;">
+        We build a comprehensive benchmark for cyclic manipulation tasks based on the RoboTwin 2.0 platform, featuring <strong>8 diverse cyclic tasks</strong> with automated data collection and evaluation systems.
+      </p>
+      <div class="columns" style="margin-top: 20px;">
+        <div class="column is-half">
+          <h4 class="title is-5">📊 Dataset</h4>
+          <ul style="font-size: 0.95em;">
+            <li><strong>200 demonstrations</strong> per task</li>
+            <li>Evenly distributed across <strong>1-8 cycles</strong></li>
+            <li>Annotated with cycle counts and 6D poses</li>
+            <li>Flexible cycle modulation via configuration</li>
+          </ul>
+        </div>
+        <div class="column is-half">
+          <h4 class="title is-5">🔍 Automated Evaluation</h4>
+          <ul style="font-size: 0.95em;">
+            <li><strong>State-machine collision detection</strong> for contact tasks</li>
+            <li><strong>Peak detection algorithm</strong> for non-contact tasks</li>
+            <li>Detailed loop detection reports</li>
+            <li><strong>97%+ accuracy</strong> validated manually</li>
+          </ul>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 25px;">
+        <img src="./static/images/detection.png" alt="Evaluation System" style="width: 100%; max-width: 800px;">
+        <p style="font-size: 0.9em; margin-top: 12px; color: #666;">
+          <strong>Automated Cycle Evaluation System:</strong> Combines peak detection (for motion-based tasks like shaking) and state-machine-based collision detection (for contact-based tasks like hammering) to accurately count cycles.
+        </p>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- Simulation Benchmark Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h3 class="title is-3 has-text-centered">Simulation Benchmark Visualization</h3>
+      <br>
+      <h2 class="subtitle has-text-centered">
+        We build a cyclic benchmark for cyclic manipulation tasks, featuring 8 diverse cyclic tasks with automated data collection and evaluation systems.
+      </h2>
+
+    <div class="columns is-multiline is-centered">
+      <!-- Row 1 -->
+      <div class="column is-one-quarter">
+        <div class="content has-text-centered">
+          <video autoplay muted loop playsinline controls style="width: 100%;">
+            <source src="./static/video/simulation_benchmark/block_hammering.mp4" type="video/mp4">
+          </video>
+          <p style="font-size: 0.9em; margin-top: 8px;">Block Hammering</p>
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="content has-text-centered">
+          <video autoplay muted loop playsinline controls style="width: 100%;">
+            <source src="./static/video/simulation_benchmark/bottle_shaking.mp4" type="video/mp4">
+          </video>
+          <p style="font-size: 0.9em; margin-top: 8px;">Bottle Shaking</p>
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="content has-text-centered">
+          <video autoplay muted loop playsinline controls style="width: 100%;">
+            <source src="./static/video/simulation_benchmark/carrot_cutting.mp4" type="video/mp4">
+          </video>
+          <p style="font-size: 0.9em; margin-top: 8px;">Carrot Cutting</p>
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="content has-text-centered">
+          <video autoplay muted loop playsinline controls style="width: 100%;">
+            <source src="./static/video/simulation_benchmark/chamistry_mixing.mp4" type="video/mp4">
+          </video>
+          <p style="font-size: 0.9em; margin-top: 8px;">Chemistry Mixing</p>
+        </div>
+      </div>
+      <!-- Row 2 -->
+      <div class="column is-one-quarter">
+        <div class="content has-text-centered">
+          <video autoplay muted loop playsinline controls style="width: 100%;">
+            <source src="./static/video/simulation_benchmark/dual-knife_chopping.mp4" type="video/mp4">
+          </video>
+          <p style="font-size: 0.9em; margin-top: 8px;">Dual-Knife Chopping</p>
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="content has-text-centered">
+          <video autoplay muted loop playsinline controls style="width: 100%;">
+            <source src="./static/video/simulation_benchmark/egg_beating.mp4" type="video/mp4">
+          </video>
+          <p style="font-size: 0.9em; margin-top: 8px;">Egg Beating</p>
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="content has-text-centered">
+          <video autoplay muted loop playsinline controls style="width: 100%;">
+            <source src="./static/video/simulation_benchmark/morse_sos.mp4" type="video/mp4">
+          </video>
+          <p style="font-size: 0.9em; margin-top: 8px;">Morse SOS</p>
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="content has-text-centered">
+          <video autoplay muted loop playsinline controls style="width: 100%;">
+            <source src="./static/video/simulation_benchmark/roller_rolling.mp4" type="video/mp4">
+          </video>
+          <p style="font-size: 0.9em; margin-top: 8px;">Roller Rolling</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Real-World Benchmark Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h3 class="title is-3 has-text-centered">Real-World Task Visualization</h3>
+    <div class="columns is-centered">
+      <div class="column is-one-quarter">
+        <div class="content has-text-centered">
+          <video autoplay muted loop playsinline controls style="width: 100%; height: 200px; object-fit: cover;">
+            <source src="./static/video/realworld_benchmark/block_hammering.mp4" type="video/mp4">
+          </video>
+          <p style="font-size: 0.9em; margin-top: 8px;">Block Hammering</p>
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="content has-text-centered">
+          <video autoplay muted loop playsinline controls style="width: 100%; height: 200px; object-fit: cover;">
+            <source src="./static/video/realworld_benchmark/bottle_shaking.mp4" type="video/mp4">
+          </video>
+          <p style="font-size: 0.9em; margin-top: 8px;">Bottle Shaking</p>
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="content has-text-centered">
+          <video autoplay muted loop playsinline controls style="width: 100%; height: 200px; object-fit: cover;">
+            <source src="./static/video/realworld_benchmark/drum_hammering.mp4" type="video/mp4">
+          </video>
+          <p style="font-size: 0.9em; margin-top: 8px;">Drum Hammering</p>
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="content has-text-centered">
+          <video autoplay muted loop playsinline controls style="width: 100%; height: 200px; object-fit: cover;">
+            <source src="./static/video/realworld_benchmark/carrot_cutting.mp4" type="video/mp4">
+          </video>
+          <p style="font-size: 0.9em; margin-top: 8px;">Carrot Cutting</p>
+        </div>
+      </div>
+    </div>
+    
+    <h4 class="title is-5 has-text-centered" style="margin-top: 30px;">Different Embodiments</h4>
+    <div class="columns is-centered">
+      <div class="column is-one-quarter">
+        <div class="content has-text-centered">
+          <video autoplay muted loop playsinline controls style="width: 100%; height: 200px; object-fit: cover;">
+            <source src="./static/video/realworld_benchmark/table_cleaning.mp4" type="video/mp4">
+          </video>
+          <p style="font-size: 0.9em; margin-top: 8px;">Table Cleaning (Dexterous Hand)</p>
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="content has-text-centered">
+          <video autoplay muted loop playsinline controls style="width: auto; height: 200px; object-fit: contain;">
+            <source src="./static/video/realworld_benchmark/pump.mp4" type="video/mp4">
+          </video>
+          <p style="font-size: 0.9em; margin-top: 8px;">Tire Pumping (Humanoid)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h3 class="title is-3 has-text-centered">Ours Framework Autonomous Execution Visualization</h3>
+    <div class="columns is-centered">
+      <label for="env-selector" style="font-size: 1.1em; margin-right: 10px;"><strong>Environment:</strong></label>
+      <select id="env-selector" style="padding: 8px 15px; font-size: 1em; border-radius: 5px; border: 1px solid #ccc; margin-right: 30px;">
+        <option value="sim">Simulation</option>
+        <option value="real">Real-World</option>
+      </select>
+      
+      <label for="task-selector" style="font-size: 1.1em; margin-right: 10px;"><strong>Task:</strong></label>
+      <select id="task-selector" style="padding: 8px 15px; font-size: 1em; border-radius: 5px; border: 1px solid #ccc;">
+        <!-- Options will be populated by JavaScript -->
+      </select>
+    </div>
+    
+    <div id="command-display" style="text-align: center; margin-bottom: 25px; font-size: 1.05em; color: #555;">
+      <strong>Command:</strong> <span id="command-text">Cut the carrot for n times</span>
+    </div>
+    </div>
+    <div id="video-container">
+      <!-- Videos will be dynamically generated by JavaScript -->
+    </div>
+  </div>
+  </div>
+</section>
+
+<script>
+  // Task definitions
+  var tasks = {
+    sim: {
+      bbh: { name: 'Block Hammering', command: 'Hammer the block for n times', baseline: 'DP3', bslCount: 3, videos: ['bsl', '1', '2', '3'] },
+      bel: { name: 'Egg Beating', command: 'Beat the egg for n times', baseline: 'Pi-0', bslCount: 3, videos: ['bsl', '1', '2', '3'] },
+      cck: { name: 'Carrot Cutting', command: 'Cut the carrot for n times', baseline: 'Pi-0', bslCount: 3, videos: ['bsl', '6', '7', '8'] },
+      dkc: { name: 'Dual-Knife Chopping', command: 'Chop with dual knives for n times', baseline: 'Pi-0', bslCount: 3, videos: ['bsl', '6', '7', '8'] },
+      grl: { name: 'Roller Rolling', command: 'Roll the roller for n times', baseline: 'DP3', bslCount: 3, videos: ['bsl', '1', '2', '3'] },
+      sbl: { name: 'Bottle Shaking', command: 'Shake the bottle for n times', baseline: 'DP3', bslCount: 3, videos: ['bsl', '1', '2', '3'] },
+      sfd: { name: 'Chemical Mixing', command: 'Mix the chemicals for n times', baseline: 'DP3', bslCount: 3, videos: ['bsl', '1', '2', '3'] },
+      sos: { name: 'Morse SOS', command: 'Tap SOS signal', baseline: 'DP3', bslCount: false, useN: false, videos: ['bsl', '1', '2', '3'] }
+    },
+    real: {
+      bbhlr: { name: 'Block Hammering', command: 'Hammer the block for n times', baseline: 'DP3', bslCount: 3, videos: ['bsl', '1', '2', '3'] },
+      bd: { name: 'Drum Beating', command: 'Beat the drum for n times', baseline: 'Pi-0', bslCount: 4, videos: ['bsl', '2', '4', '6'] },
+      pump: { name: 'Tire Pumping', command: 'Pump the tire for n times', baseline: 'DP3', bslCount: 3, videos: ['bsl', '1', '2', '3'] },
+      sblr: { name: 'Bottle Shaking', command: 'Shake the bottle for n times', baseline: 'DP3', bslCount: 3, videos: ['bsl', '1', '2', '3'] },
+      sweep: { name: 'Table Cleaning', command: 'Clean the table for n times', baseline: 'DP3', bslCount: 3, videos: ['bsl', '1', '2', '3'] }
+    }
+  };
+
+  var currentEnv = 'sim';
+  var currentTask = 'cck';
+
+  function populateTaskSelector() {
+    var taskSelector = document.getElementById('task-selector');
+    taskSelector.innerHTML = '';
+    
+    var taskList = tasks[currentEnv];
+    for (var key in taskList) {
+      var option = document.createElement('option');
+      option.value = key;
+      option.textContent = taskList[key].name;
+      taskSelector.appendChild(option);
+    }
+    
+    // Set first task as default
+    currentTask = Object.keys(taskList)[0];
+    taskSelector.value = currentTask;
+  }
+
+  function updateVideos() {
+    var taskInfo = tasks[currentEnv][currentTask];
+    var container = document.getElementById('video-container');
+    
+    // Update command text
+    document.getElementById('command-text').textContent = taskInfo.command;
+    
+    // Generate video HTML
+    var html = '<div class="columns is-centered">';
+    
+    var useN = taskInfo.useN !== false; // Default to true if not specified
+    
+    taskInfo.videos.forEach(function(video, index) {
+      var label;
+      if (video === 'bsl') {
+        label = useN ? 'Baseline(' + taskInfo.baseline + ') (n=' + taskInfo.bslCount + ')' : 'Baseline(' + taskInfo.baseline + ')';
+      } else {
+        label = useN ? 'Ours (n=' + video + ')' : 'Ours';
+      }
+      
+      html += '<div class="column is-2">' +
+              '<div class="content has-text-centered">' +
+              '<video autoplay muted playsinline controls style="width: 100%;">' +
+              '<source src="./static/video/experiment/' + currentEnv + '/' + currentTask + '/' + video + '.mp4" type="video/mp4">' +
+              '</video>' +
+              '<p style="font-size: 0.9em; margin-top: 8px;"><strong>' + label + '</strong></p>' +
+              '</div>' +
+              '</div>';
+    });
+    
+    html += '</div>';
+    container.innerHTML = html;
+  }
+
+  // Initialize
+  populateTaskSelector();
+  updateVideos();
+
+  // Event listeners
+  document.getElementById('env-selector').addEventListener('change', function() {
+    currentEnv = this.value;
+    populateTaskSelector();
+    updateVideos();
+  });
+
+  document.getElementById('task-selector').addEventListener('change', function() {
+    currentTask = this.value;
+    updateVideos();
+  });
+</script>
+
+<!-- Experiments Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Experiments</h2>
+    
+    <!-- Simulation Results Table -->
+    <h3 class="title is-4 has-text-centered" style="margin-top: 30px; margin-bottom: 20px;">Simulation Results</h3>
+    <div style="overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse; margin: 0 auto 40px auto; font-size: 0.9em;">
+        <thead>
+          <tr style="border-bottom: 2px solid #333;">
+            <th style="padding: 10px; text-align: left; border-right: 1px solid #ddd;">Method</th>
+            <th colspan="2" style="padding: 10px; text-align: center; border-left: 1px solid #ddd;">Block Hammering</th>
+            <th colspan="2" style="padding: 10px; text-align: center; border-left: 1px solid #ddd;">Bottle Shaking</th>
+            <th colspan="2" style="padding: 10px; text-align: center; border-left: 1px solid #ddd;">Roller Rolling</th>
+            <th colspan="2" style="padding: 10px; text-align: center; border-left: 1px solid #ddd;">Carrot Cutting</th>
+            <th colspan="2" style="padding: 10px; text-align: center; border-left: 1px solid #ddd;">Dual-Knife Chopping</th>
+            <th colspan="2" style="padding: 10px; text-align: center; border-left: 1px solid #ddd;">Egg Beating</th>
+            <th colspan="2" style="padding: 10px; text-align: center; border-left: 1px solid #ddd;">Chemical Mixing</th>
+            <th colspan="2" style="padding: 10px; text-align: center; border-left: 1px solid #ddd;">Morse Tapping</th>
+          </tr>
+          <tr style="border-bottom: 1px solid #ddd; background-color: #f9f9f9;">
+            <th style="padding: 8px; border-right: 1px solid #ddd;"></th>
+            <th style="padding: 8px; text-align: center;">Suc.</th>
+            <th style="padding: 8px; text-align: center;">Cyc.</th>
+            <th style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">Suc.</th>
+            <th style="padding: 8px; text-align: center;">Cyc.</th>
+            <th style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">Suc.</th>
+            <th style="padding: 8px; text-align: center;">Cyc.</th>
+            <th style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">Suc.</th>
+            <th style="padding: 8px; text-align: center;">Cyc.</th>
+            <th style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">Suc.</th>
+            <th style="padding: 8px; text-align: center;">Cyc.</th>
+            <th style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">Suc.</th>
+            <th style="padding: 8px; text-align: center;">Cyc.</th>
+            <th style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">Suc.</th>
+            <th style="padding: 8px; text-align: center;">Cyc.</th>
+            <th style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">Suc.</th>
+            <th style="padding: 8px; text-align: center;">Cyc.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 8px; border-right: 1px solid #ddd;">DP</td>
+            <td style="padding: 8px; text-align: center;">8</td>
+            <td style="padding: 8px; text-align: center;">8.33</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">8</td>
+            <td style="padding: 8px; text-align: center;">7.91</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">25</td>
+            <td style="padding: 8px; text-align: center;">1.88</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">4</td>
+            <td style="padding: 8px; text-align: center;">5.65</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">8</td>
+            <td style="padding: 8px; text-align: center;">3.79</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">15</td>
+            <td style="padding: 8px; text-align: center;">2.18</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">20</td>
+            <td style="padding: 8px; text-align: center;">1.16</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">0</td>
+            <td style="padding: 8px; text-align: center;">-</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 8px; border-right: 1px solid #ddd;">DP3</td>
+            <td style="padding: 8px; text-align: center;">23</td>
+            <td style="padding: 8px; text-align: center;">5.55</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">16</td>
+            <td style="padding: 8px; text-align: center;">4.58</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">33</td>
+            <td style="padding: 8px; text-align: center;">1.44</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">38</td>
+            <td style="padding: 8px; text-align: center;">1.92</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">48</td>
+            <td style="padding: 8px; text-align: center;">0.81</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">19</td>
+            <td style="padding: 8px; text-align: center;">1.95</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">18</td>
+            <td style="padding: 8px; text-align: center;">1.41</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">1</td>
+            <td style="padding: 8px; text-align: center;">-</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 8px; border-right: 1px solid #ddd;">RDT</td>
+            <td style="padding: 8px; text-align: center;">20</td>
+            <td style="padding: 8px; text-align: center;">2.15</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">15</td>
+            <td style="padding: 8px; text-align: center;">1.53</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">35</td>
+            <td style="padding: 8px; text-align: center;">1.55</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">36</td>
+            <td style="padding: 8px; text-align: center;">1.24</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">42</td>
+            <td style="padding: 8px; text-align: center;">2.13</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">16</td>
+            <td style="padding: 8px; text-align: center;">2.31</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">12</td>
+            <td style="padding: 8px; text-align: center;">2.0</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">0</td>
+            <td style="padding: 8px; text-align: center;">-</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 8px; border-right: 1px solid #ddd;">Pi-0</td>
+            <td style="padding: 8px; text-align: center;">13</td>
+            <td style="padding: 8px; text-align: center;">3.44</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">19</td>
+            <td style="padding: 8px; text-align: center;">2.00</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">14</td>
+            <td style="padding: 8px; text-align: center;">3.80</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">8</td>
+            <td style="padding: 8px; text-align: center;">2.54</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">1</td>
+            <td style="padding: 8px; text-align: center;">3.14</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">4</td>
+            <td style="padding: 8px; text-align: center;">2.15</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">2</td>
+            <td style="padding: 8px; text-align: center;">2.37</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">0</td>
+            <td style="padding: 8px; text-align: center;">-</td>
+          </tr>
+          <tr style="border-top: 2px solid #333; background-color: #f0f8ff; font-weight: bold;">
+            <td style="padding: 8px; border-right: 1px solid #ddd;">Ours</td>
+            <td style="padding: 8px; text-align: center;">86</td>
+            <td style="padding: 8px; text-align: center;">0.25</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">95</td>
+            <td style="padding: 8px; text-align: center;">0.29</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">97</td>
+            <td style="padding: 8px; text-align: center;">0.03</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">86</td>
+            <td style="padding: 8px; text-align: center;">0.81</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">90</td>
+            <td style="padding: 8px; text-align: center;">0.4</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">74</td>
+            <td style="padding: 8px; text-align: center;">0.61</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">53</td>
+            <td style="padding: 8px; text-align: center;">0.76</td>
+            <td style="padding: 8px; text-align: center; border-left: 1px solid #ddd;">91</td>
+            <td style="padding: 8px; text-align: center;">-</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="text-align: center; font-size: 0.85em; color: #666; margin-top: -20px;">
+        <strong>Suc.</strong> = Success Rate (%), <strong>Cyc.</strong> = Cycle Count Deviation
+      </p>
+    </div>
+
+    <!-- Real-World Results Table -->
+    <h3 class="title is-4 has-text-centered" style="margin-top: 50px; margin-bottom: 20px;">Real-World Results</h3>
+    <div style="overflow-x: auto;">
+      <table style="width: 90%; border-collapse: collapse; margin: 0 auto 40px auto; font-size: 0.95em;">
+        <thead>
+          <tr style="border-bottom: 2px solid #333;">
+            <th style="padding: 12px; text-align: left; border-right: 1px solid #ddd;">Task</th>
+            <th style="padding: 12px; text-align: center; border-right: 1px solid #ddd;">Setting</th>
+            <th colspan="2" style="padding: 12px; text-align: center; border-left: 1px solid #ddd;">DP3</th>
+            <th colspan="2" style="padding: 12px; text-align: center; border-left: 1px solid #ddd;">w/o Task</th>
+            <th colspan="2" style="padding: 12px; text-align: center; border-left: 1px solid #ddd;">Ours</th>
+          </tr>
+          <tr style="border-bottom: 1px solid #ddd; background-color: #f9f9f9;">
+            <th style="padding: 10px; border-right: 1px solid #ddd;"></th>
+            <th style="padding: 10px; border-right: 1px solid #ddd;"></th>
+            <th style="padding: 10px; text-align: center;">Suc.</th>
+            <th style="padding: 10px; text-align: center;">Cyc.</th>
+            <th style="padding: 10px; text-align: center; border-left: 1px solid #ddd;">Suc.</th>
+            <th style="padding: 10px; text-align: center;">Cyc.</th>
+            <th style="padding: 10px; text-align: center; border-left: 1px solid #ddd;">Suc.</th>
+            <th style="padding: 10px; text-align: center;">Cyc.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 10px; border-right: 1px solid #ddd;">Block Hammering</td>
+            <td style="padding: 10px; text-align: center; border-right: 1px solid #ddd;">Single Gripper</td>
+            <td style="padding: 10px; text-align: center;">37.5</td>
+            <td style="padding: 10px; text-align: center;">1.12</td>
+            <td style="padding: 10px; text-align: center; border-left: 1px solid #ddd;">62.5</td>
+            <td style="padding: 10px; text-align: center;">0.5</td>
+            <td style="padding: 10px; text-align: center; border-left: 1px solid #ddd; font-weight: bold;">93.75</td>
+            <td style="padding: 10px; text-align: center; font-weight: bold;">0.125</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 10px; border-right: 1px solid #ddd;">Bottle Shaking</td>
+            <td style="padding: 10px; text-align: center; border-right: 1px solid #ddd;">Single Gripper</td>
+            <td style="padding: 10px; text-align: center;">12.5</td>
+            <td style="padding: 10px; text-align: center;">3.81</td>
+            <td style="padding: 10px; text-align: center; border-left: 1px solid #ddd;">31.25</td>
+            <td style="padding: 10px; text-align: center;">1.31</td>
+            <td style="padding: 10px; text-align: center; border-left: 1px solid #ddd; font-weight: bold;">68.75</td>
+            <td style="padding: 10px; text-align: center; font-weight: bold;">0.375</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 10px; border-right: 1px solid #ddd;">Drum Beating</td>
+            <td style="padding: 10px; text-align: center; border-right: 1px solid #ddd;">Bi-Gripper</td>
+            <td style="padding: 10px; text-align: center;">0</td>
+            <td style="padding: 10px; text-align: center;">2.4</td>
+            <td style="padding: 10px; text-align: center; border-left: 1px solid #ddd;">60</td>
+            <td style="padding: 10px; text-align: center;">0.8</td>
+            <td style="padding: 10px; text-align: center; border-left: 1px solid #ddd; font-weight: bold;">90</td>
+            <td style="padding: 10px; text-align: center; font-weight: bold;">0.2</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 10px; border-right: 1px solid #ddd;">Table Cleaning</td>
+            <td style="padding: 10px; text-align: center; border-right: 1px solid #ddd;">Bi-Dexterous</td>
+            <td style="padding: 10px; text-align: center;">20</td>
+            <td style="padding: 10px; text-align: center;">0.9</td>
+            <td style="padding: 10px; text-align: center; border-left: 1px solid #ddd;">40</td>
+            <td style="padding: 10px; text-align: center;">1.6</td>
+            <td style="padding: 10px; text-align: center; border-left: 1px solid #ddd; font-weight: bold;">100</td>
+            <td style="padding: 10px; text-align: center; font-weight: bold;">0.00</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 10px; border-right: 1px solid #ddd;">Tire Pumping</td>
+            <td style="padding: 10px; text-align: center; border-right: 1px solid #ddd;">Humanoid</td>
+            <td style="padding: 10px; text-align: center;">10</td>
+            <td style="padding: 10px; text-align: center;">3.70</td>
+            <td style="padding: 10px; text-align: center; border-left: 1px solid #ddd;">20</td>
+            <td style="padding: 10px; text-align: center;">2.0</td>
+            <td style="padding: 10px; text-align: center; border-left: 1px solid #ddd; font-weight: bold;">50</td>
+            <td style="padding: 10px; text-align: center; font-weight: bold;">1.5</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 10px; border-right: 1px solid #ddd;">Knife Cutting</td>
+            <td style="padding: 10px; text-align: center; border-right: 1px solid #ddd;">Bi-Dexterous</td>
+            <td style="padding: 10px; text-align: center;">0</td>
+            <td style="padding: 10px; text-align: center;">1.75</td>
+            <td style="padding: 10px; text-align: center; border-left: 1px solid #ddd;">25</td>
+            <td style="padding: 10px; text-align: center;">4.125</td>
+            <td style="padding: 10px; text-align: center; border-left: 1px solid #ddd; font-weight: bold;">75</td>
+            <td style="padding: 10px; text-align: center; font-weight: bold;">0.88</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="text-align: center; font-size: 0.85em; color: #666; margin-top: -20px;">
+        <strong>w/o Task</strong> = Ours without historical understanding
+      </p>
+    </div>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{wei2025cyclemanip,
+  author    = {Yi-Lin Wei and Haoran Liao and Yuhao Lin and Pengyue Wang and Zhizhao Liang and Guiliang Liu and Wei-Shi Zheng},
+  title     = {CycleManip: Enabling Cyclic Task Manipulation via Effective Historical Perception and Understanding},
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="#">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="#" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            Template borrowed from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
